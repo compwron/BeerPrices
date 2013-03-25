@@ -5,30 +5,31 @@ import java.io.FileInputStream;
 
 public class Beer {
     String volume;
-    Double price;
+    String price;
     String beerName;
-    Double basePrice;
+    String basePrice;
+    Properties prop;
 
-    public Beer(String volume, String beerName) {
+    public Beer(String vol, String name) {
+        this.volume = vol;
+        this.beerName = name;
         introduceConfig();
-
         this.basePrice = findBasePrice(beerName);
     }
 
-    protected Double findBasePrice(String beerName) {
-        return 0.99;
+    protected String findBasePrice(String beerName) {
+        return prop.getProperty(beerName, "nope");
     }
 
-    public Double getBasePrice(){
+    public String getBasePrice(){
         return basePrice;
     }
 
-    private void introduceConfig() {
+    public void introduceConfig() {
         Properties basePriceProperties = new Properties();
 
         try {
             basePriceProperties.load(new FileInputStream("config.properties"));
-            System.out.println(basePriceProperties.getProperty("shiner"));
         }
         catch (FileNotFoundException e) {
             System.err.println("FileNotFoundException: " + e.getMessage());
@@ -36,5 +37,20 @@ public class Beer {
         catch (IOException e) {
             System.err.println("Caught IOException: " + e.getMessage());
         }
+        this.prop = basePriceProperties;
     }
+
+    protected String getsAllProperties(){
+        String allProperties = new String("");
+        for(String key : prop.stringPropertyNames()) {
+            String value = prop.getProperty(key);
+            allProperties += (key + " => " + value + "\n");
+        }
+        return allProperties;
+    }
+
+    protected void printsAllProperties(){
+        prop.list(System.out);
+    }
+
 }
