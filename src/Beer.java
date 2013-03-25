@@ -46,6 +46,6 @@ public class Beer {
     }
 
     private boolean beerIsInABottle() {
-        return true;
+        return (size == "bottle") ? true : false;
     }
 }
