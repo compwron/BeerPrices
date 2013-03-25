@@ -4,20 +4,21 @@ import java.util.Properties;
 import java.io.FileInputStream;
 
 public class Beer {
-    String volume;
-    String price;
+    String size;
+    double shelfPrice;
     String beerName;
-    String basePrice;
+    double basePrice;
     Properties prop;
 
-    public Beer(String vol, String name) {
-        this.volume = vol;
-        this.beerName = name;
+    public Beer(String volume, String name) {
+        this.size = volume.toLowerCase();
+        this.beerName = name.toLowerCase();
         introduceConfig();
-        this.basePrice = prop.getProperty(beerName, "nope");
+        this.basePrice = Double.parseDouble(prop.getProperty(beerName, "nope"));
+        this.shelfPrice = calculateShelfPrice();
     }
 
-    public String getBasePrice(){
+    public double getBasePrice(){
         return basePrice;
     }
 
@@ -36,17 +37,15 @@ public class Beer {
         this.prop = basePriceProperties;
     }
 
-    protected String getsAllProperties(){
-        String allProperties = new String("");
-        for(String key : prop.stringPropertyNames()) {
-            String value = prop.getProperty(key);
-            allProperties += (key + " => " + value + "\n");
+    public double calculateShelfPrice() {
+        shelfPrice = basePrice;
+        if (beerIsInABottle()) {
+            shelfPrice += Double.parseDouble(prop.getProperty("bottleCharge"));
         }
-        return allProperties;
+        return shelfPrice;
     }
 
-    protected void printsAllProperties(){
-        prop.list(System.out);
+    private boolean beerIsInABottle() {
+        return true;
     }
-
 }

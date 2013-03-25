@@ -7,13 +7,13 @@ public class BeerTest {
     @Test
     public void getsBeerBasePrice() {
         Beer beer = new Beer("bottle", "shiner");
-        assertEquals("1.50", beer.getBasePrice());
+        assertEquals(1.50, beer.getBasePrice());
     }
 
     @Test
-    public void readsAllProperties() {
-        Beer beer = new Beer("bottle", "shiner");
-        assertEquals("corona => 1.30\nbudweiser => 1.00\nshiner => 1.50\nstella => 1.40\n", beer.getsAllProperties());
+    public void getsBeerShelfPriceWhenInABottle() {
+        Beer beer = new Beer("bottle", "budweiser");
+        assertEquals(3.00, beer.calculateShelfPrice());
     }
 
 }
