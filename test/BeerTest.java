@@ -11,7 +11,7 @@ public class BeerTest {
     }
 
     @Test
-    public void displaysAllProperties() {
+    public void readsAllProperties() {
         Beer beer = new Beer("bottle", "shiner");
         assertEquals("corona => 1.30\nbudweiser => 1.00\nshiner => 1.50\nstella => 1.40\n", beer.getsAllProperties());
     }

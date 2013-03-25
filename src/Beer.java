@@ -14,11 +14,7 @@ public class Beer {
         this.volume = vol;
         this.beerName = name;
         introduceConfig();
-        this.basePrice = findBasePrice(beerName);
-    }
-
-    protected String findBasePrice(String beerName) {
-        return prop.getProperty(beerName, "nope");
+        this.basePrice = prop.getProperty(beerName, "nope");
     }
 
     public String getBasePrice(){
