@@ -1,7 +1,6 @@
 import org.junit.Test;
 
 import static junit.framework.Assert.assertEquals;
-import static junit.framework.Assert.assertTrue;
 
 public class BeerTest {
     @Test
@@ -22,13 +21,13 @@ public class BeerTest {
         assertEquals(9.00, beer.calculateShelfPrice());
     }
 
-//    @Test(expected=NumberFormatException.class)
-//    public void throwsExeptionWhenGivenNonsenseSize() throws NumberFormatException {
-//        Beer beer = new Beer("happy", "shiner");
-//        try { beer.calculateShelfPrice(); }
-//        catch (NumberFormatException e) {
-//        }
-//    }
+    @Test
+    public void throwsExeptionWhenGivenNonsenseSize() {
+        Beer beer = new Beer("happy", "shiner");
+        try { beer.calculateShelfPrice(); }
+        catch (NumberFormatException e) {
+        }
+    }
 
     @Test
     public void calculatesShelfPriceWithSizeInOunces() {

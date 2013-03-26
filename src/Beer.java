@@ -80,10 +80,7 @@ public class Beer {
             Pattern patOunces = Pattern.compile("(\\d*).*ounces");
             Matcher matOunces = patOunces.matcher(size);
             if (matOunces.matches()) { return Double.parseDouble(matOunces.group(1)); }
-            else {
-                System.err.println("Caught NumberFormatException: " + e.getMessage());
-                    return 0;
-            }
+            else { return 0; }
         }
     }
 
