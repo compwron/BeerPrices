@@ -16,4 +16,10 @@ public class BeerTest {
         assertEquals(3.00, beer.calculateShelfPrice());
     }
 
+    @Test
+    public void getsBeerShelfPriceWhenFromAKeg() {
+        Beer beer = new Beer("8oz", "budweiser");
+        assertEquals(2.00, beer.calculateShelfPrice());
+    }
+
 }

@@ -9,6 +9,8 @@ public class Beer {
     String beerName;
     double basePrice;
     Properties prop;
+    double volume;
+    double pricePerUnitVolume;
 
     public Beer(String volume, String name) {
         this.size = volume.toLowerCase();
@@ -41,11 +43,24 @@ public class Beer {
         shelfPrice = basePrice;
         if (beerIsInABottle()) {
             shelfPrice += Double.parseDouble(prop.getProperty("bottleCharge"));
+        } else {
+            this.volume = calcVolume();
+            this.pricePerUnitVolume = findPricePerUnitVolume();
+            shelfPrice += volume / pricePerUnitVolume;
         }
         return shelfPrice;
+    }
+
+    private double findPricePerUnitVolume() {
+        return 1;
+    }
+
+    private double calcVolume() {
+        return 1;
     }
 
     private boolean beerIsInABottle() {
         return (size == "bottle") ? true : false;
     }
+
 }
