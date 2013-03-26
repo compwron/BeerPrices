@@ -1,3 +1,5 @@
+import com.sun.corba.se.impl.logging.ORBUtilSystemException;
+
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Properties;
@@ -58,26 +60,29 @@ public class Beer {
     }
 
     private double calcVolume() {
-        double ounces = 0;
-        if (size == "large") { ounces = 16; }
-        else if (size == "medium") { ounces = 12; }
-        else if (size == "small") { ounces = 8; }
-        else { ounces = parseSize(); }
-        return ounces;
+        if (size.equals("large")) { return 16; }
+        else if (size.equals("medium")) { return 12; }
+        else if (size.equals("small")) { return 8; }
+        else { return parseSize(); }
     }
 
     private double parseSize() {
         try { return Double.parseDouble(size); }
         catch (NumberFormatException  e) {
-            Pattern pattern = Pattern.compile("(\\d*).*ounces"); //(\\d*)||(\\d*).*oz||(\\d*).*ounces");
-            Matcher matcher = pattern.matcher(size);
-            if (matcher.matches()) {
-                System.out.println("It matches, all right --> " + size + " --> " + matcher.group(1));
-                return Double.parseDouble(matcher.group(1));
-            }
+            Pattern patNumAlone = Pattern.compile("(\\d*)");
+            Matcher matNumAlone = patNumAlone.matcher(size);
+            if (matNumAlone.matches()) { return Double.parseDouble(matNumAlone.group(1)); }
+
+            Pattern patOz = Pattern.compile("(\\d*).*oz");
+            Matcher matOz = patOz.matcher(size);
+            if (matOz.matches()) { return Double.parseDouble(matOz.group(1)); }
+
+            Pattern patOunces = Pattern.compile("(\\d*).*ounces");
+            Matcher matOunces = patOunces.matcher(size);
+            if (matOunces.matches()) { return Double.parseDouble(matOunces.group(1)); }
             else {
                 System.err.println("Caught NumberFormatException: " + e.getMessage());
-                return 0;
+                    return 0;
             }
         }
     }
