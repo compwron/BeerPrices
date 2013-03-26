@@ -67,21 +67,19 @@ public class Beer {
     }
 
     private double parseSize() {
-        double ounces = 0;
         try { return Double.parseDouble(size); }
         catch (NumberFormatException  e) {
-            try {
-                Pattern pattern = Pattern.compile("(\\d*)||(\\d*).*oz||(\\d*).*ounces");
-                Matcher matcher = pattern.matcher(size);
-                if (matcher.matches()) {
-                    return Double.parseDouble(matcher.group(1));
-                }
+            Pattern pattern = Pattern.compile("(\\d*).*ounces"); //(\\d*)||(\\d*).*oz||(\\d*).*ounces");
+            Matcher matcher = pattern.matcher(size);
+            if (matcher.matches()) {
+                System.out.println("It matches, all right --> " + size + " --> " + matcher.group(1));
+                return Double.parseDouble(matcher.group(1));
             }
-            catch (NumberFormatException  f) {
-                System.err.println("Caught NumberFormatException: " + f.getMessage());
+            else {
+                System.err.println("Caught NumberFormatException: " + e.getMessage());
+                return 0;
             }
         }
-        return ounces;
     }
 
     private boolean beerIsInABottle() {

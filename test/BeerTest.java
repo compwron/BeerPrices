@@ -30,11 +30,11 @@ public class BeerTest {
 //        }
 //    }
 
-//    @Test
-//    public void calculatesShelfPriceWithSizeInOunces() {
-//        Beer beer = new Beer("20ounces", "shiner");
-//        assertEquals(2.00, beer.calculateShelfPrice());
-//    }
+    @Test
+    public void calculatesShelfPriceWithSizeInOunces() {
+        Beer beer = new Beer("20ounces", "shiner");
+        assertEquals(21.50, beer.calculateShelfPrice());
+    }
 //
 //    @Test
 //    public void calculatesShelfPriceWithSizeIn_Ounces() {
