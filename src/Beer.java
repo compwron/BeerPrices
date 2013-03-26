@@ -2,6 +2,8 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Properties;
 import java.io.FileInputStream;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class Beer {
     String size;
@@ -16,7 +18,7 @@ public class Beer {
         this.size = volume.toLowerCase();
         this.beerName = name.toLowerCase();
         introduceConfig();
-        this.basePrice = Double.parseDouble(prop.getProperty(beerName, "nope"));
+        this.basePrice = Double.parseDouble(prop.getProperty("base." + beerName, "nope"));
         this.shelfPrice = calculateShelfPrice();
     }
 
@@ -56,7 +58,30 @@ public class Beer {
     }
 
     private double calcVolume() {
-        return 1;
+        double ounces = 0;
+        if (size == "large") { ounces = 16; }
+        else if (size == "medium") { ounces = 12; }
+        else if (size == "small") { ounces = 8; }
+        else { ounces = parseSize(); }
+        return ounces;
+    }
+
+    private double parseSize() {
+        double ounces = 0;
+        try { return Double.parseDouble(size); }
+        catch (NumberFormatException  e) {
+            try {
+                Pattern pattern = Pattern.compile("(\\d*)||(\\d*).*oz||(\\d*).*ounces");
+                Matcher matcher = pattern.matcher(size);
+                if (matcher.matches()) {
+                    return Double.parseDouble(matcher.group(1));
+                }
+            }
+            catch (NumberFormatException  f) {
+                System.err.println("Caught NumberFormatException: " + f.getMessage());
+            }
+        }
+        return ounces;
     }
 
     private boolean beerIsInABottle() {
