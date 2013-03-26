@@ -1,39 +1,42 @@
 import com.sun.corba.se.impl.logging.ORBUtilSystemException;
 
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
+import java.util.Locale;
 import java.util.Properties;
 import java.io.FileInputStream;
+import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import static java.lang.Math.round;
 
 public class Beer {
     String size;
     double shelfPrice;
     String beerName;
     double basePrice;
-    Properties prop;
     double volume;
     double pricePerUnitVolume;
+    Properties prop;
 
     public Beer(String volume, String name) {
         this.size = volume.toLowerCase();
         this.beerName = name.toLowerCase();
         introduceConfig();
-        this.basePrice = Double.parseDouble(prop.getProperty("base." + beerName, "nope"));
+        this.basePrice = Double.parseDouble(prop.getProperty("base." + beerName, "0"));
+        if (basePrice == 0) {
+            System.out.println("Please update the beer properties file and add this new beer!");
+        }
         this.shelfPrice = calculateShelfPrice();
-    }
-
-    public double getBasePrice(){
-        return basePrice;
     }
 
     public void introduceConfig() {
         Properties basePriceProperties = new Properties();
-
-        try {
-            basePriceProperties.load(new FileInputStream("config.properties"));
-        }
+        try { basePriceProperties.load(new FileInputStream(getConfigPropertyName())); }
         catch (FileNotFoundException e) {
             System.err.println("FileNotFoundException: " + e.getMessage());
         }
@@ -43,26 +46,44 @@ public class Beer {
         this.prop = basePriceProperties;
     }
 
+    public String getConfigPropertyName() {
+        return "config.properties";
+    }
+
+    public double getBasePrice(){
+        return basePrice;
+    }
+
+    public String formatShelfPrice(){
+        NumberFormat n = NumberFormat.getCurrencyInstance(Locale.US);
+        return n.format(shelfPrice);
+    }
+
     public double calculateShelfPrice() {
         shelfPrice = basePrice;
         if (beerIsInABottle()) {
             shelfPrice += Double.parseDouble(prop.getProperty("bottleCharge"));
-        } else {
-            this.volume = calcVolume();
-            this.pricePerUnitVolume = findPricePerUnitVolume();
-            shelfPrice += volume / pricePerUnitVolume;
         }
-        return shelfPrice;
+        this.volume = calcVolume();
+        this.pricePerUnitVolume = Double.parseDouble(prop.getProperty("ounce." + beerName, "0"));
+        shelfPrice += volume * pricePerUnitVolume;
+
+        return roundTwoDecimals(shelfPrice);
     }
 
-    private double findPricePerUnitVolume() {
-        return 1;
+    double roundTwoDecimals(double d) {
+        DecimalFormat twoDForm = new DecimalFormat("#.##");
+        return Double.valueOf(twoDForm.format(d));
     }
 
     private double calcVolume() {
         if (size.equals("large")) { return 16; }
+        else if (size.equals("pint")) {return 16; }
+        else if (size.equals("imperial pint")) {return 20; }
+        else if (size.equals("bottle")) { return 12; }
         else if (size.equals("medium")) { return 12; }
         else if (size.equals("small")) { return 8; }
+        else if (size.equals("flight")) {return 3; }
         else { return parseSize(); }
     }
 
