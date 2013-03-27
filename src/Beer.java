@@ -21,17 +21,17 @@ public class Beer {
         this.size = size.toLowerCase();
         beerName = name.toLowerCase();
         prop = introduceConfig();
-        basePrice = calcBasePrice(prop, beerName);
+        basePrice = findPropertyFromConfig(prop, beerName, "base");
         if (basePrice == 0) {
             System.out.println("Please update the beer properties file and add this new beer (" + size + ")!" );
         }
         volume = calcVolume(this.size);
-        pricePerUnitVolume = Double.parseDouble(prop.getProperty("ounce." + beerName, "0"));
+        pricePerUnitVolume = findPropertyFromConfig(prop, beerName, "ounce");
         this.shelfPrice = calculateShelfPrice(this.size, basePrice, volume, pricePerUnitVolume, prop);
     }
 
-    private double calcBasePrice(Properties prop, String beerName) { // Can mock this now
-        return Double.parseDouble(prop.getProperty("base." + beerName, "0"));
+    private double findPropertyFromConfig(Properties prop, String beerName, String modifier) { // Can mock this now
+        return Double.parseDouble(prop.getProperty(modifier + "." + beerName, "0"));
     }
 
     public Properties introduceConfig() {
