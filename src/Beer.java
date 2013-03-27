@@ -20,7 +20,7 @@ public class Beer {
     public Beer(String size, String name) {
         this.size = size.toLowerCase();
         beerName = name.toLowerCase();
-        prop = introduceConfig(getConfigPropertyName());
+        prop = introduceConfig(getConfigPropertyName(""));
         basePrice = findPropertyFromConfig(prop, beerName, "base");
         if (basePrice == 0) {
             System.out.println("Please update the beer properties file and add this new beer (" + size + ")!" );
@@ -46,9 +46,8 @@ public class Beer {
         return basePriceProperties;
     }
 
-    public String getConfigPropertyName() { // Add optional variable passed in to
-    // practice other config files, like Winter vs Summer
-        return "config.properties";
+    public String getConfigPropertyName(String specialConfig) {
+        return (specialConfig == "") ? "config.properties" : specialConfig;
     }
 
     public String formatShelfPrice(double shelfPrice) {
