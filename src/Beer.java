@@ -18,17 +18,19 @@ public class Beer {
     Properties prop;
 
     public Beer(String size, String name) {
-        this.size = size.toLowerCase(); // "this." is only necessary if names are the same
-        this.beerName = name.toLowerCase();
-        introduceConfig();
-        this.basePrice = Double.parseDouble(prop.getProperty("base." + beerName, "0")); // if I make this a new method then I can mock property and test it
+        this.size = size.toLowerCase();
+        beerName = name.toLowerCase();
+        prop = introduceConfig();
+        basePrice = Double.parseDouble(prop.getProperty("base." + beerName, "0")); // if I make this a new method then I can mock property and test it
         if (basePrice == 0) {
             System.out.println("Please update the beer properties file and add this new beer (" + size + ")!" );
         }
-        this.shelfPrice = calculateShelfPrice();
+        volume = calcVolume(this.size);
+        pricePerUnitVolume = Double.parseDouble(prop.getProperty("ounce." + beerName, "0"));
+        this.shelfPrice = calculateShelfPrice(this.size, basePrice, volume, pricePerUnitVolume, prop);
     }
 
-    public void introduceConfig() { //have this return a properties rather than being void.  So you can test it.
+    public Properties introduceConfig() {
         Properties basePriceProperties = new Properties();
         try {
             basePriceProperties.load(new FileInputStream(getConfigPropertyName()));
@@ -37,39 +39,42 @@ public class Beer {
         } catch (IOException e) {
             System.err.println("Caught IOException: " + e.getMessage());
         }
-        this.prop = basePriceProperties;
+        return basePriceProperties;
     }
 
-    public String getConfigPropertyName() {
+    public String getConfigPropertyName() { // Add optional variable passed in to
+    // practice other config files, like Winter vs Summer
         return "config.properties";
     }
 
-    public double getBasePrice() {
-        return basePrice;
-    }
-
-    public String formatShelfPrice() {
+    public String formatShelfPrice(double shelfPrice) {
         NumberFormat numberFormat = NumberFormat.getCurrencyInstance(Locale.US);
         return numberFormat.format(shelfPrice);
     }
 
-    public double calculateShelfPrice() { //change the class variables to passed variables
-        // do this so that 1) testing is better, 2) you prevent mistakes in the future, 3) you make the
-        //next person's job easier, 4) you don't worry about random other methods changing your precious class variables
-        shelfPrice = basePrice;
-        if (beerIsInABottle()) {
-            shelfPrice += Double.parseDouble(prop.getProperty("bottleCharge"));
+    public double calculateShelfPrice(String size, double basePrice,
+        double volume, double pricePerUnitVolume, Properties prop) {
+        double price = basePrice;
+        if (beerIsInABottle(size)) {
+            price += Double.parseDouble(prop.getProperty("bottleCharge"));
         }
-        this.volume = calcVolume();
-        this.pricePerUnitVolume = Double.parseDouble(prop.getProperty("ounce." + beerName, "0"));
-        shelfPrice += volume * pricePerUnitVolume;
 
-        return roundTwoDecimals(shelfPrice);
+        price += volume * pricePerUnitVolume;
+
+        return roundTwoDecimals(price);
     }
 
-    double roundTwoDecimals(double price) { // use real names to help whoever comes next.  Or your later self.
+    double roundTwoDecimals(double price) {
         DecimalFormat twoDForm = new DecimalFormat("#.##");
         return Double.valueOf(twoDForm.format(price));
+    }
+
+    private double calcVolume(String size) {
+        return BeerOunces.getFromName(size).ounces(size);
+    }
+
+    private boolean beerIsInABottle(String size) {
+        return (size == "bottle") ? true : false;
     }
 
     public enum BeerOunces {
@@ -163,14 +168,33 @@ public class Beer {
             return BeerOunces.NONE;
         }
         protected abstract String sizeName();
-    };
-
-    private double calcVolume() {
-        return BeerOunces.getFromName(size).ounces(size); //unfortunate duplication here...
     }
 
-    private boolean beerIsInABottle() {
-        return (size == "bottle") ? true : false;
+    public double getBasePrice() {
+        return basePrice;
     }
 
+    public double getShelfPrice() {
+        return shelfPrice;
+    }
+
+    public String getSize() {
+        return size;
+    }
+
+    public String getBeerName() {
+        return beerName;
+    }
+
+    public double getVolume() {
+        return volume;
+    }
+
+    public double getPricePerUnitVolume() {
+        return pricePerUnitVolume;
+    }
+
+    public Properties getProp() {
+        return prop;
+    }
 }
