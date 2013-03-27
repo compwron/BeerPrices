@@ -20,7 +20,7 @@ public class Beer {
     public Beer(String size, String name) {
         this.size = size.toLowerCase();
         beerName = name.toLowerCase();
-        prop = introduceConfig();
+        prop = introduceConfig(getConfigPropertyName());
         basePrice = findPropertyFromConfig(prop, beerName, "base");
         if (basePrice == 0) {
             System.out.println("Please update the beer properties file and add this new beer (" + size + ")!" );
@@ -34,10 +34,10 @@ public class Beer {
         return Double.parseDouble(prop.getProperty(modifier + "." + beerName, "0"));
     }
 
-    public Properties introduceConfig() {
+    public Properties introduceConfig(String configName) {
         Properties basePriceProperties = new Properties();
         try {
-            basePriceProperties.load(new FileInputStream(getConfigPropertyName()));
+            basePriceProperties.load(new FileInputStream(configName));
         } catch (FileNotFoundException e) {
             System.err.println("FileNotFoundException: " + e.getMessage());
         } catch (IOException e) {
@@ -184,10 +184,6 @@ public class Beer {
 
     public String getSize() {
         return size;
-    }
-
-    public String getBeerName() {
-        return beerName;
     }
 
     public double getVolume() {
