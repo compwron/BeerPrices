@@ -72,54 +72,101 @@ public class Beer {
         return Double.valueOf(twoDForm.format(price));
     }
 
-    private double calcVolume() { //Enum!
-        if (size.equals("large")) {
-            return 16;
-        } else if (size.equals("pint")) {
-            return 16;
-        } else if (size.equals("imperial pint")) {
-            return 20;
-        } else if (size.equals("bottle")) {
-            return 12;
-        } else if (size.equals("medium")) {
-            return 12;
-        } else if (size.equals("small")) {
-            return 8;
-        } else if (size.equals("flight")) {
-            return 3;
-        } else {
-            return parseSize();
-        }
-    }
+    public enum BeerOunces {
+        PINT(){
+            public double ounces(String size){
+                return 16;
+            }
+            public String sizeName() {
+                return "pint";
+            }
+        }, LARGE(){
+            public double ounces(String size){
+                return 16;
+            }
+            public String sizeName() {
+                return "large";
+            }
+        }, IMPERIAL_PINT() {
+            public double ounces(String size) {
+                return 20;
+            }
+            public String sizeName() {
+                return "imperial pint";
+            }
+        }, BOTTLE() {
+            public double ounces(String size) {
+                return 12;
+            }
+            public String sizeName() {
+                return "bottle";
+            }
+        }, MEDIUM() {
+            public double ounces(String size) {
+                return 12;
+            }
+            public String sizeName() {
+                return "medium";
+            }
+        }, SMALL() {
+            public double ounces(String size) {
+                return 8;
+            }
+            public String sizeName() {
+                return "small";
+            }
+        }, FLIGHT() {
+            public double ounces(String size) {
+                return 3;
+            }
+            public String sizeName() {
+                return "flight";
+            }
+        }, NONE() {
+            public double ounces(String size) { //look into replacing with yaml because it has a parsing library for this sort of thing
+                try { //it's a design flaw to take different types of input in the same design parameter.  So it gets > complicated than it needs to be
+                    return Double.parseDouble(size);
+                } catch (NumberFormatException e) { // put each into different methods so you can test it better!
+                    Pattern patNumAlone = Pattern.compile("(\\d*)");
+                    Matcher matNumAlone = patNumAlone.matcher(size);
+                    if (matNumAlone.matches()) {
+                        return Double.parseDouble(matNumAlone.group(1));
+                    }
 
-    private double parseSize() { //look into replacing with yaml because it has a parsing library for this sort of thing
-        try {
-            return Double.parseDouble(size);
-        } catch (NumberFormatException e) { // put each into different methods so you can test it better!
-            return getBeerSize();
-        }
-    }
+                    Pattern patOz = Pattern.compile("(\\d*).*oz");
+                    Matcher matOz = patOz.matcher(size);
+                    if (matOz.matches()) {
+                        return Double.parseDouble(matOz.group(1));
+                    }
 
-    private double getBeerSize() {
-        Pattern patNumAlone = Pattern.compile("(\\d*)");
-        Matcher matNumAlone = patNumAlone.matcher(size);
-        if (matNumAlone.matches()) {
-            return Double.parseDouble(matNumAlone.group(1));
-        }
+                    Pattern patOunces = Pattern.compile("(\\d*).*ounces");
+                    Matcher matOunces = patOunces.matcher(size);
+                    if (matOunces.matches()) {
+                        return Double.parseDouble(matOunces.group(1));
+                    } else {
+                        return 0;
+                    }
+                }
+            }
+            public String sizeName() {
+                return "none";
+            }
+        };
+        public abstract double ounces(String size);
 
-        Pattern patOz = Pattern.compile("(\\d*).*oz");
-        Matcher matOz = patOz.matcher(size);
-        if (matOz.matches()) {
-            return Double.parseDouble(matOz.group(1));
+        public static BeerOunces getFromName(String beerSize) {
+            for (BeerOunces beerOunce : BeerOunces.values()) {
+                if (beerOunce.sizeName().equals(beerSize)){
+                    return beerOunce;
+                }
+            }
+            return BeerOunces.NONE;
         }
+        protected abstract String sizeName();
+    };
 
-        Pattern patOunces = Pattern.compile("(\\d*).*ounces");
-        Matcher matOunces = patOunces.matcher(size);
-        if (matOunces.matches()) {
-            return Double.parseDouble(matOunces.group(1));
-        } else {
-            return 0;
-        }
+    private double calcVolume() {
+        return BeerOunces.getFromName(size).ounces(size); //unfortunate duplication here...
     }
 
     private boolean beerIsInABottle() {

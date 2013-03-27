@@ -3,6 +3,17 @@ import org.junit.Test;
 import static junit.framework.Assert.assertEquals;
 
 public class BeerTest {
+
+    @Test
+    public void sizeOfPintIs16() {
+        assertEquals(16.0, Beer.BeerOunces.PINT.ounces("doesn't matter"));
+    }
+
+    @Test
+    public void beerOuncesKnowsItsName(){
+        assertEquals(Beer.BeerOunces.IMPERIAL_PINT, Beer.BeerOunces.getFromName("imperial pint"));
+    }
+
     @Test
     public void getsBeerBasePrice() {
         Beer beer = new Beer("bottle", "shiner");
