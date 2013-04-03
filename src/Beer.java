@@ -73,14 +73,14 @@ public class Beer {
     }
 
     private double calcVolume(String size) {
-        return BeerOunces.getFromName(size).ounces(size);
+        return BeerSize.getFromName(size).ounces(size);
     }
 
     private boolean beerIsInABottle(String size) {
         return (size == "bottle") ? true : false;
     }
 
-    public enum BeerOunces {
+    public enum BeerSize {
         PINT(){
             public double ounces(String size){
                 return 16;
@@ -162,13 +162,13 @@ public class Beer {
         };
         public abstract double ounces(String size);
 
-        public static BeerOunces getFromName(String beerSize) {
-            for (BeerOunces beerOunce : BeerOunces.values()) {
+        public static BeerSize getFromName(String beerSize) {
+            for (BeerSize beerOunce : BeerSize.values()) {
                 if (beerOunce.sizeName().equals(beerSize)){
                     return beerOunce;
                 }
             }
-            return BeerOunces.NONE;
+            return BeerSize.NONE;
         }
         protected abstract String sizeName();
     }

@@ -6,12 +6,12 @@ public class BeerTest {
 
     @Test
     public void sizeOfPintIs16() {
-        assertEquals(16.0, Beer.BeerOunces.PINT.ounces("doesn't matter"));
+        assertEquals(16.0, Beer.BeerSize.PINT.ounces("doesn't matter"));
     }
 
     @Test
     public void beerOuncesKnowsItsName(){
-        assertEquals(Beer.BeerOunces.IMPERIAL_PINT, Beer.BeerOunces.getFromName("imperial pint"));
+        assertEquals(Beer.BeerSize.IMPERIAL_PINT, Beer.BeerSize.getFromName("imperial pint"));
     }
 
     @Test
