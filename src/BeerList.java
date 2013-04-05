@@ -1,7 +1,12 @@
+import org.springframework.beans.factory.annotation.Autowired;
+
 import java.util.ArrayList;
 import java.util.Properties;
 
 public class BeerList {
+
+    @Autowired
+    private SpringTestingObject sto;
 
     private ArrayList<Beer> allBeers;
 

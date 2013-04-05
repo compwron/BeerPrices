@@ -5,6 +5,12 @@ import java.util.Properties;
 
 public class BeerProperties {
 
+    private static Properties properties;
+
+    public static Properties getProperties() {
+        return properties;
+    }
+
     public Properties introduceConfig(String configName) {
         Properties basePriceProperties = new Properties();
         try {

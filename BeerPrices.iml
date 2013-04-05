@@ -28,6 +28,65 @@
         </SOURCES>
       </library>
     </orderEntry>
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/lib/spring.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/lib/log4j-1.2.8.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/lib/commons-beanutils.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/commons-cli-1.2.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/commons-collections-3.2.1.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/commons-io-1.4.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/commons-lang-2.4.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/commons-logging-1.1.1.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/dozer-5.1.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/hamcrest-core-1.1.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/hamcrest-library-1.1.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/jaxb-impl.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/jaxb1-impl.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/jmock-2.3.0-RC2.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/jmock-junit4-2.3.0-RC2.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/joda-time-1.6.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/junit-4.8.2.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/junit-dep-4.8.2.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/objenesis-1.0.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/jaxb-xjc.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES>
+          <root url="jar://$MODULE_DIR$/lib/hamcrest-core-1.1.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/hamcrest-library-1.1.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/jmock-2.3.0-RC2.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/jmock-junit4-2.3.0-RC2.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/jaxb-xjc.jar!/1.0" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="file://$MODULE_DIR$/resources" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
   </component>
 </module>
 
