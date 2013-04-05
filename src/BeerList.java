@@ -5,21 +5,32 @@ import java.util.Properties;
 
 public class BeerList {
 
-    @Autowired
-    private SpringTestingObject sto;
+//    @Autowired
+    Properties beerPrices;
 
     private ArrayList<Beer> allBeers;
 
-    public BeerList(Properties beerProperties) {
-        this.allBeers = makeAllBeers(beerProperties);
+//    public BeerList() {
+//        this.allBeers = makeAllBeers(beerProperties);
+//    }
 
-
+//    take this out and make xml for tests to bring in a different test config?
+    @Autowired
+    public BeerList(Properties beerPrices) {
+        this.allBeers = makeAllBeers(beerPrices);
     }
 
     private ArrayList<Beer> makeAllBeers(Properties beerProperties) {
-        return null;  //To change body of created methods use File | Settings | File Templates.
+        return null;
     }
 
+    public void setBeerPrices(Properties beerPrices){
+        this.beerPrices = beerPrices;
+    }
+
+    public Properties getBeerPrices(){
+       return beerPrices;
+    }
 
 
     public String getBeerMenu() {
