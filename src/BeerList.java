@@ -5,16 +5,9 @@ import java.util.Properties;
 
 public class BeerList {
 
-//    @Autowired
-    Properties beerPrices;
-
+    private Properties beerPrices;
     private ArrayList<Beer> allBeers;
 
-//    public BeerList() {
-//        this.allBeers = makeAllBeers(beerProperties);
-//    }
-
-//    take this out and make xml for tests to bring in a different test config?
     @Autowired
     public BeerList(Properties beerPrices) {
         this.allBeers = makeAllBeers(beerPrices);

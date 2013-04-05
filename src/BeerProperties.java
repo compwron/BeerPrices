@@ -1,11 +1,17 @@
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Properties;
 
 public class BeerProperties {
 
     private static Properties properties;
+    private ArrayList<String> beerNames;
+
+    public BeerProperties(String configLocation) {
+        this.properties = introduceConfig(configLocation);
+    }
 
     public static Properties getProperties() {
         return properties;
@@ -29,5 +35,9 @@ public class BeerProperties {
 
     private double findPropertyFromConfig(Properties prop, String beerName, String modifier) { // Can mock this now
         return Double.parseDouble(prop.getProperty(modifier + "." + beerName, "0"));  //will split on dot
+    }
+
+    public ArrayList<String> getBeerNames() {
+        return beerNames;
     }
 }
