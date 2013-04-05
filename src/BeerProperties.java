@@ -6,15 +6,23 @@ import java.util.Properties;
 
 public class BeerProperties {
 
-    private static Properties properties;
+    private Properties properties;
     private ArrayList<String> beerNames;
 
     public BeerProperties(String configLocation) {
         this.properties = introduceConfig(configLocation);
+        this.beerNames = extractBeerNames(properties);
     }
 
-    public static Properties getProperties() {
-        return properties;
+    private ArrayList<String> extractBeerNames(Properties properties) {
+        ArrayList<String> beerNames = new ArrayList<String>();
+
+        while(properties.propertyNames().hasMoreElements()){
+            beerNames.add((String) properties.propertyNames().nextElement());
+
+        }
+
+        return beerNames;
     }
 
     public Properties introduceConfig(String configName) {
