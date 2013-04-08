@@ -16,13 +16,25 @@ public class BeerProperties {
 
     private ArrayList<String> extractBeerNames(Properties properties) {
         ArrayList<String> beerNames = new ArrayList<String>();
-
-        while(properties.propertyNames().hasMoreElements()){
-            beerNames.add((String) properties.propertyNames().nextElement());
+        for(String propertyName : properties.stringPropertyNames()){
+            String[] partsOfPropertyName = propertyName.split("\\.");
+            for(String namePart :partsOfPropertyName){
+                if(namePart.contains("base")){
+                    beerNames.add((String) beerNameOf(propertyName));
+                }
+            }
 
         }
+//        while(properties.propertyNames().hasMoreElements()){
+//            beerNames.add((String) properties.propertyNames().nextElement());
+//
+//        }
 
         return beerNames;
+    }
+
+    private String beerNameOf(String propertyName) {
+        return propertyName.replace("base.", "");
     }
 
     public Properties introduceConfig(String configName) {
