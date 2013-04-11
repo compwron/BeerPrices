@@ -13,4 +13,9 @@ public class BeerPropertiesTest {
 
         assertEquals(expectedBeerNames, beerProperties.getBeerNames());
     }
+
+    @Test
+    public void knowsBasePriceOfBeer(){
+
+    }
 }

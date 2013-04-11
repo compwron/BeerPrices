@@ -9,12 +9,15 @@ public class BeerList {
     private ArrayList<Beer> allBeers;
 
     @Autowired
-    public BeerList(Properties beerPrices) {
-        this.allBeers = makeAllBeers(beerPrices);
+    public BeerList(BeerProperties beerProperties) {
+        this.allBeers = makeAllBeers(beerProperties);
     }
 
-    private ArrayList<Beer> makeAllBeers(Properties beerProperties) {
-        return null;
+    private ArrayList<Beer> makeAllBeers(ArrayList<BeerProperty> beerProperties) {
+        for(BeerProperty beerProperty: beerProperties){
+            beers.add(new Beer())
+        }
+
     }
 
     public void setBeerPrices(Properties beerPrices){
@@ -34,5 +37,9 @@ public class BeerList {
 //            }
 //        }
         return "";
+    }
+
+    public ArrayList<Beer> getLightBeers(){
+        return null;
     }
 }

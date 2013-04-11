@@ -7,7 +7,9 @@ public class Main {
 
         ApplicationContext context = new ClassPathXmlApplicationContext("Beans.xml");
 
-        BeerList beerList = (BeerList) context.getBean("beerList");
+//        BeerList beerList = (BeerList) context.getBean("beerList");
+
+        BeerList beerList = new BeerList(new PropertyGetter("beer.properties").getBeerProperties()); // getBeerProperties returns ArrayList<BeerProperty>
         System.out.println(beerList.getBeerMenu());
 
     }
