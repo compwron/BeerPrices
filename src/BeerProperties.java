@@ -9,8 +9,8 @@ public class BeerProperties {
     private Properties properties;
     private ArrayList<String> beerNames;
 
-    public BeerProperties(String configLocation) {
-        this.properties = loadConfig(configLocation);
+    public BeerProperties() {
+        this.properties = loadConfig("");
         this.beerNames = extractBeerNames(properties);
     }
 
