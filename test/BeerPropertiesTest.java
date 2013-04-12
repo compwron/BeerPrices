@@ -6,7 +6,7 @@ import static org.junit.Assert.assertEquals;
 
 public class BeerPropertiesTest {
     @Test
-    public void shouldLoadPropertiesFromFile(){
+    public void shouldLoadPropertiesFromFile() {
         BeerProperties beerProperties = new BeerProperties("test/config/beer.properties");
         ArrayList<String> expectedBeerNames = new ArrayList<String>();
         expectedBeerNames.add("testBeerName");
@@ -15,7 +15,7 @@ public class BeerPropertiesTest {
     }
 
     @Test
-    public void knowsBasePriceOfBeer(){
+    public void knowsBasePriceOfBeer() {
 
     }
 }

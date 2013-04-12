@@ -1,15 +1,12 @@
 import org.junit.Test;
 
-import java.util.Properties;
-
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.mock;
 
 public class BeerListTest {
     @Test
-    public void getsEmptyBeerMenuWhenThereIsNoBeerConfig(){
-        Properties prop = mock(Properties.class);
-        BeerList beerList = new BeerList(prop);
+    public void getsEmptyBeerMenuWhenThereIsNoBeerConfig() {
+        BeerList beerList = new BeerList(mock(BeerProperties.class));
         assertEquals("", beerList.getBeerMenu());
     }
 

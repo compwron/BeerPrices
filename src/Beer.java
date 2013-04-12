@@ -23,7 +23,7 @@ public class Beer {
         prop = introduceConfig(getConfigPropertyName(""));
         basePrice = findPropertyFromConfig(prop, beerName, "base");
         if (basePrice == 0) {
-            System.out.println("Please update the beer properties file and add this new beer (" + size + ")!" );
+            System.out.println("Please update the beer properties file and add this new beer (" + size + ")!");
         }
         volume = calcVolume(this.size);
         pricePerUnitVolume = findPropertyFromConfig(prop, beerName, "ounce");
@@ -56,7 +56,7 @@ public class Beer {
     }
 
     public double calculateShelfPrice(String size, double basePrice,
-        double volume, double pricePerUnitVolume, Properties prop) {
+                                      double volume, double pricePerUnitVolume, Properties prop) {
         double price = basePrice;
         if (beerIsInABottle(size)) {
             price += Double.parseDouble(prop.getProperty("bottleCharge"));
@@ -81,17 +81,19 @@ public class Beer {
     }
 
     public enum BeerSize {
-        PINT(){
-            public double ounces(String size){
+        PINT() {
+            public double ounces(String size) {
                 return 16;
             }
+
             public String sizeName() {
                 return "pint";
             }
-        }, LARGE(){
-            public double ounces(String size){
+        }, LARGE() {
+            public double ounces(String size) {
                 return 16;
             }
+
             public String sizeName() {
                 return "large";
             }
@@ -99,6 +101,7 @@ public class Beer {
             public double ounces(String size) {
                 return 20;
             }
+
             public String sizeName() {
                 return "imperial pint";
             }
@@ -106,6 +109,7 @@ public class Beer {
             public double ounces(String size) {
                 return 12;
             }
+
             public String sizeName() {
                 return "bottle";
             }
@@ -113,6 +117,7 @@ public class Beer {
             public double ounces(String size) {
                 return 12;
             }
+
             public String sizeName() {
                 return "medium";
             }
@@ -120,6 +125,7 @@ public class Beer {
             public double ounces(String size) {
                 return 8;
             }
+
             public String sizeName() {
                 return "small";
             }
@@ -127,6 +133,7 @@ public class Beer {
             public double ounces(String size) {
                 return 3;
             }
+
             public String sizeName() {
                 return "flight";
             }
@@ -156,20 +163,23 @@ public class Beer {
                     }
                 }
             }
+
             public String sizeName() {
                 return "none";
             }
         };
+
         public abstract double ounces(String size);
 
         public static BeerSize getFromName(String beerSize) {
             for (BeerSize beerOunce : BeerSize.values()) {
-                if (beerOunce.sizeName().equals(beerSize)){
+                if (beerOunce.sizeName().equals(beerSize)) {
                     return beerOunce;
                 }
             }
             return BeerSize.NONE;
         }
+
         protected abstract String sizeName();
     }
 

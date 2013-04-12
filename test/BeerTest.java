@@ -10,7 +10,7 @@ public class BeerTest {
     }
 
     @Test
-    public void beerOuncesKnowsItsName(){
+    public void beerOuncesKnowsItsName() {
         assertEquals(Beer.BeerSize.IMPERIAL_PINT, Beer.BeerSize.getFromName("imperial pint"));
     }
 
@@ -38,9 +38,10 @@ public class BeerTest {
     @Test
     public void throwsExeptionWhenGivenNonsenseSize() {
         Beer beer = new Beer("happy", "shiner");
-        try { beer.calculateShelfPrice(beer.getSize(), beer.getBasePrice(),
-                beer.getVolume(), beer.getPricePerUnitVolume(), beer.getProp()); }
-            catch (NumberFormatException e) {
+        try {
+            beer.calculateShelfPrice(beer.getSize(), beer.getBasePrice(),
+                    beer.getVolume(), beer.getPricePerUnitVolume(), beer.getProp());
+        } catch (NumberFormatException e) {
         }
     }
 
