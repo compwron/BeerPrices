@@ -34,4 +34,8 @@ public class BeerProperties {
     public ArrayList<String> getBeerNames() {
         return beerNames;
     }
+
+    public ArrayList<BeerProperty> allBeerProperties() {
+        return null;  //To change body of created methods use File | Settings | File Templates.
+    }
 }
