@@ -22,7 +22,7 @@ public class BeerPropertiesTest {
     }
 
     @Test
-    public void beerPropertiesShouldContainAsManyBeerPropertyObjectsAsThereAreBeersInConfig(){
+    public void beerPropertiesShouldContainAsManyBeerPropertyObjectsAsThereAreBeersInConfig() {
         BeerProperties beerProperties = new BeerPropertiesGetter("test/config/beer.properties").getBeerProperties();
         assertThat(beerProperties.allBeerProperties().size(), is(1));
     }

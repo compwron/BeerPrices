@@ -2,8 +2,10 @@ import org.junit.Test;
 
 public class BeerPropertyTest {
     @Test
-    public void beerPropertyShouldContainBeerName(){}
+    public void beerPropertyShouldContainBeerName() {
+    }
 
     @Test
-    public void beerPropertyShouldContainPricePerOunce(){}
+    public void beerPropertyShouldContainPricePerOunce() {
+    }
 }
