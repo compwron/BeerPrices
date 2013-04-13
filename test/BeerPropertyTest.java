@@ -10,7 +10,6 @@ public class BeerPropertyTest {
     Double pricePerOunce = 0.50;
     Double baseBeerPrice = 1.50;
 
-
     @Test
     public void beerPropertyShouldContainBeerName() {
         BeerProperty beerProperty = new BeerProperty(properties());
@@ -23,6 +22,11 @@ public class BeerPropertyTest {
         assertThat(beerProperty.pricePerOunce, is(pricePerOunce));
     }
 
+    @Test
+    public void beerPropertyShouldContainBasePrice() {
+        BeerProperty beerProperty = new BeerProperty(properties());
+        assertThat(beerProperty.basePrice, is(baseBeerPrice));
+    }
 
     private ArrayList<String> properties() {
         ArrayList<String> properties = new ArrayList<String>();
