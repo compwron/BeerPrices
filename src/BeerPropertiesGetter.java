@@ -1,7 +1,7 @@
-public class BeerPropertyGetter {
+public class BeerPropertiesGetter {
     private BeerProperties beerProperties;
 
-    public BeerPropertyGetter(String configFileLocation) {
+    public BeerPropertiesGetter(String configFileLocation) {
     }
 
     public BeerProperties getBeerProperties() {
