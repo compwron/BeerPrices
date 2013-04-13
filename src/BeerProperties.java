@@ -1,16 +1,11 @@
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Properties;
 
 public class BeerProperties {
 
-    private Properties properties;
     private ArrayList<String> beerNames;
 
-    public BeerProperties() {
-        this.properties = loadConfig("");
+    public BeerProperties(Properties properties) {
         this.beerNames = extractBeerNames(properties);
     }
 
@@ -34,18 +29,6 @@ public class BeerProperties {
 
     private String beerNameOf(String propertyName) {
         return propertyName.replace("base.", "");
-    }
-
-    public Properties loadConfig(String configName) {
-        Properties basePriceProperties = new Properties();
-        try {
-            basePriceProperties.load(new FileInputStream(configName));
-        } catch (FileNotFoundException e) {
-            System.err.println("FileNotFoundException: " + e.getMessage());
-        } catch (IOException e) {
-            System.err.println("Caught IOException: " + e.getMessage());
-        }
-        return basePriceProperties;
     }
 
     public ArrayList<String> getBeerNames() {

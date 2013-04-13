@@ -1,13 +1,12 @@
 import org.junit.Test;
 
-import static org.hamcrest.core.Is.is;
-import static org.junit.Assert.assertThat;
+import static junit.framework.Assert.assertTrue;
 
 
 public class BeerPropertiesGetterTest {
     @Test
-    public void getsPropertiesFrom(){
+    public void shouldLoadBeerNameWhenBeerNameIsInConfigFile(){
         BeerPropertiesGetter getter = new BeerPropertiesGetter("test/config/beer.properties");
-        assertThat(getter.getBeerProperties(), is(new BeerProperties()));
+        assertTrue(getter.getBeerProperties().getBeerNames().contains("testBeerName"));
     }
 }
