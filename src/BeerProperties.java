@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Properties;
 
 public class BeerProperties {
@@ -12,14 +13,25 @@ public class BeerProperties {
     }
 
     private ArrayList<BeerProperty> extractBeerProperties(Properties properties) {
-        ArrayList<BeerProperty> allBeerProperties = new ArrayList<BeerProperty>();
-        for (String propertyName : properties.stringPropertyNames()) {
-            if (containsNewBeerName(propertyName, allBeerProperties)) {
-                allBeerProperties.add(new BeerProperty(beerNameOf(propertyName)));
-            }
+        HashMap<String, ArrayList<String>> beerDatums = beersWithDatums(properties);
+        return beerPropertiesFromDatums(beerDatums);
+    }
 
+    private ArrayList<BeerProperty> beerPropertiesFromDatums(HashMap<String, ArrayList<String>> beerDatums) {
+        ArrayList<BeerProperty> allBeerProperties = new ArrayList<BeerProperty>();
+        for (String beerName : beerDatums.keySet()){
+            allBeerProperties.add(new BeerProperty(beerDatums.get(beerName)));
         }
         return allBeerProperties;
+    }
+
+    private HashMap<String, ArrayList<String>> beersWithDatums(Properties properties) {
+        HashMap<String, ArrayList<String>> beerDatums = new HashMap<String, ArrayList<String>>();
+        for (String propertyName : properties.stringPropertyNames()) {
+            beerDatums.get(beerNameOf(propertyName)).add(propertyName);
+
+        }
+        return beerDatums;
     }
 
     private boolean containsNewBeerName(String propertyName, ArrayList<BeerProperty> currentBeerProperties) {

@@ -8,17 +8,12 @@ import static org.junit.Assert.assertThat;
 
 public class BeerPropertiesTest {
     @Test
-    public void shouldLoadPropertiesFromFile() {
+    public void shouldContainNamesOfAllBeersInConfig() {
         BeerProperties beerProperties = new BeerPropertiesGetter("test/config/beer.properties").getBeerProperties();
         ArrayList<String> expectedBeerNames = new ArrayList<String>();
         expectedBeerNames.add("testBeerName");
 
         assertEquals(expectedBeerNames, beerProperties.getBeerNames());
-    }
-
-    @Test
-    public void knowsBasePriceOfBeer() {
-
     }
 
     @Test
