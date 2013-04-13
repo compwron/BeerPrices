@@ -19,7 +19,7 @@ public class BeerProperties {
 
     private ArrayList<BeerProperty> beerPropertiesFromDatums(HashMap<String, ArrayList<String>> beerDatums) {
         ArrayList<BeerProperty> allBeerProperties = new ArrayList<BeerProperty>();
-        for (String beerName : beerDatums.keySet()){
+        for (String beerName : beerDatums.keySet()) {
             allBeerProperties.add(new BeerProperty(beerDatums.get(beerName)));
         }
         return allBeerProperties;
@@ -34,30 +34,9 @@ public class BeerProperties {
         return beerDatums;
     }
 
-    private boolean containsNewBeerName(String propertyName, ArrayList<BeerProperty> currentBeerProperties) {
-        if (!isBeerSpecificProperty(propertyName)) {
-            return false;
-        }
-        for (String beerName : getBeerNames()) {
-            if (propertyName.contains(beerName) && !beerIsIn(beerName, currentBeerProperties)) {
-                return true;
-            }
-        }
-        return false;
-    }
-
     private boolean isBeerSpecificProperty(String propertyName) {
         for (String beerName : getBeerNames()) {
             if (propertyName.contains(beerName)) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    private boolean beerIsIn(String beerName, ArrayList<BeerProperty> currentBeerProperties) {
-        for (BeerProperty beerProperty : currentBeerProperties) {
-            if (beerProperty.beerName.equals(beerName)) {
                 return true;
             }
         }
